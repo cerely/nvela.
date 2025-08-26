@@ -65,7 +65,7 @@ $conn->close();
     </div>
   </main>
 
-  <script src="nvela.js"></script>
+<script src="http://localhost/NVELAMAIN/document/nvela.js?v=<?php echo time(); ?>"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.min.js"></script>
 </body>
 </html>

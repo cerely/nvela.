@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "/../db.php";
+include __DIR__ . "/../../db.php";
 
 if (isset($_FILES['file'])) {
     $uploadDir = __DIR__ . "/../uploads/";

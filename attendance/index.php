@@ -50,12 +50,7 @@ if ($resultAtt) {
 <html>
 <head>
     <title>Attendance Sheet</title>
-    <style>
-        table { border-collapse: collapse; width: 100%; font-family: sans-serif; }
-        th, td { border: 1px solid #ccc; padding: 5px; text-align: center; }
-        th { background-color: #f4f4f4; }
-        td.name { text-align: left; }
-    </style>
+    
 </head>
 <body>
 

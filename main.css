@@ -39,6 +39,7 @@ body {
 }
 
 .navbar {
+    
     display: flex;
     /* flex-wrap: wrap; */
     align-items: center;
@@ -54,6 +55,7 @@ body {
 
 /* Navigation Icons */
 .nav-icons {
+    height: 45px;
     flex: 1;
     display: flex;
     align-items: center;
@@ -273,6 +275,11 @@ body {
     gap: 1rem;
     padding: 1rem;
     margin-top: 1.2rem;
+}
+
+.access p{
+    text-decoration: none;
+    color: var(--text-color-2);
 }
 
 .rec{
