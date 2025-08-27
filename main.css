@@ -14,6 +14,7 @@
 
     --border-radius: 12px;
     --card-border-radius: 1rem;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 *,
@@ -44,7 +45,7 @@ body {
     /* flex-wrap: wrap; */
     align-items: center;
     gap: 1rem;
-    padding: 0.5rem 2rem 0rem 1rem;
+    padding: 0.5rem 1rem 0rem 1rem;
 }
 
 .logo {
@@ -166,7 +167,58 @@ body {
     border-radius: var(--border-radius);
 }
 
-.color-picker > fieldset{
+.color-picker fieldset {
+    margin-top: 2rem;
+    border: 0;
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    /* background: var(--color-beige); */
+    border-radius: var(--border-radius);
+}
+
+.color-picker label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: var(--color-bg);
+  transition: background 0.3s, color 0.3s;
+}
+
+.color-picker input[type="radio"] {
+    appearance: none;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    outline: 2px solid var(--radio-color, currentColor);
+    outline-offset: 2px;
+}
+
+.color-picker input[type="radio"]:checked {
+  background-color: var(--radio-color);
+}
+
+.color-picker input[type="radio"]#midnight { --radio-color: #131C26; }
+.color-picker input[type="radio"]#biege   { --radio-color: #A79EA3; }
+.color-picker input[type="radio"]#rose    { --radio-color: #E7D0E3; }
+.color-picker input[type="radio"]#blue    { --radio-color: #659BB8; }
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/* .color-picker > fieldset{
     border: 0;
     display: flex;
     gap: 0.5rem;
@@ -196,9 +248,42 @@ body {
 
 .color-picker input[type="radio"]#rose{
     --radio-color: #E7D0E3;
+} */
+
+:root[data-theme="beige"] {
+    --color-bg: #FFFBEF;
+    --color-light: #A79EA3;
+    --color-dark: #786B76;
+    --color-beige: #CFC9C9;
+    --color-black: #000000;
+    --text-color: #aea8ad;
+    --text-color-1: #A2999F ;
+    --text-color-2: #433B42;
 }
 
-:root:has(#midnight:checked){
+:root[data-theme="midnight"] {
+    --color-bg: #101B29;
+    --color-light: #09111B;
+    --color-dark: #09111B;
+    --color-beige: #09111B;
+    --color-black: #000000;
+    --text-color: #FFBED3;
+    --text-color-1: #FFBED3 ;
+    --text-color-2: #FFBED3;
+}
+
+:root[data-theme="rose"] {
+    --color-bg: #F8E8F5;
+    --color-light: #E7D0E3;
+    --color-dark: #D4A5C9;
+    --color-beige: #F0E6ED;
+    --color-black: #000000;
+    --text-color: #8B4A7A;
+    --text-color-1: #A96B94;
+    --text-color-2: #6B2C5C;
+}
+
+/* :root:has(#midnight:checked){
     --color-bg: #101B29;
     --color-light: #09111B;
     --color-dark: #09111B;
@@ -209,7 +294,7 @@ body {
     --text-color-2: #FFBED3;
 
     .weath-bg {
-    position: absolute;              /* overlay gradient */
+    position: absolute;             
     top: 0;
     left: 0;
     width: 100%;
@@ -218,9 +303,9 @@ body {
     z-index: 1;
     border-radius: var(--border-radius);
     }
-}
+} */
 
-:root:has(#biege:checked){
+/* :root:has(#biege:checked){
     --color-bg: #FFFBEF;
     --color-light: #A79EA3;
     --color-dark: #786B76;
@@ -231,7 +316,7 @@ body {
     --text-color-2: #433B42;
 
     .weath-bg {
-    position: absolute;              /* overlay gradient */
+    position: absolute;              
     top: 0;
     left: 0;
     width: 100%;
@@ -240,6 +325,51 @@ body {
     z-index: 1;
     border-radius: var(--border-radius);
     }
+} */
+
+@view-transition { navigation: auto; }
+::view-transition-group(root) { animation-duration: 1.5s; }
+
+@property --time {
+  syntax: '<number>';
+  initial-value: 0;
+  inherits: true;
+}
+
+@keyframes move-out { from { } to {  } }
+
+@keyframes move-in {
+  from { --time: -0.1; }
+  to { --time: 1.1; }
+}
+
+::view-transition-old(root) {
+    animation: 2s ease-in both move-out;
+}
+
+::view-transition-new(root) {
+  --humps: 1.5; 
+  --pi: 3.14; 
+  --lr: calc(var(--humps) * pi); 
+  --time: 0.0;
+
+  clip-path: polygon(
+    0% 0%,
+    0% calc(cos(calc(0 + var(--time)) * var(--lr)) * 10% + calc(100% * var(--time))),
+    10% calc(cos(calc(0.1 + var(--time)) * var(--lr)) * 10% + calc(100% * var(--time))),
+    20% calc(cos(calc(0.2 + var(--time)) * var(--lr)) * 10% + calc(100% * var(--time))),
+    30% calc(cos(calc(0.3 + var(--time)) * var(--lr)) * 10% + calc(100% * var(--time))),
+    40% calc(cos(calc(0.4 + var(--time)) * var(--lr)) * 10% + calc(100% * var(--time))),
+    50% calc(cos(calc(0.5 + var(--time)) * var(--lr)) * 10% + calc(100% * var(--time))),
+    60% calc(cos(calc(0.6 + var(--time)) * var(--lr)) * 10% + calc(100% * var(--time))),
+    70% calc(cos(calc(0.7 + var(--time)) * var(--lr)) * 10% + calc(100% * var(--time))),
+    80% calc(cos(calc(0.8 + var(--time)) * var(--lr)) * 10% + calc(100% * var(--time))),
+    90% calc(cos(calc(0.9 + var(--time)) * var(--lr)) * 10% + calc(100% * var(--time))),
+    100% calc(cos(calc(1.0 + var(--time)) * var(--lr)) * 10% + calc(100% * var(--time))),
+    100% 0%
+  );
+  /* And declare the animation, which is what moves the wave */
+  animation: 1.5s ease-in both move-in;
 }
 
 .grid{
@@ -517,7 +647,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(#fffbef00 0%, #659BB8 60%);
+    background: linear-gradient(var(--color-light) 0%, var(--color-dark) 60%);
     z-index: 1;
     border-radius: var(--border-radius);
 }
@@ -651,3 +781,4 @@ body {
 
 
 }
+

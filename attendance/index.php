@@ -50,44 +50,89 @@ if ($resultAtt) {
 <html>
 <head>
     <title>Attendance Sheet</title>
-    
+    <link rel="stylesheet" href="att.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
 </head>
 <body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <p>nvela.</p>
+            </div>
 
-<h2>Attendance for <?= date('F Y', strtotime("$year-$month-01")) ?></h2>
+            <div class="nav-icons">
+                <a href="../main.html" class="nav-ico">
+                    <span class="material-symbols-outlined">dashboard</span>
+                </a>
+                <a href="http://localhost/NVELAMAIN/document/nvela.php" class="nav-ico">
+                    <span class="material-symbols-outlined">description</span>
+                </a>
+                <a href="#control" class="nav-ico">
+                    <span class="material-symbols-outlined">discover_tune</span>
+                </a>
+                <a href="#database" class="nav-ico">
+                    <span class="material-symbols-outlined">database</span>
+                </a>
+            </div>
 
-<form method="get">
-    Month: <input type="number" name="month" min="1" max="12" value="<?= $month ?>">
-    Year: <input type="number" name="year" min="2000" max="2100" value="<?= $year ?>">
-    <button type="submit">View</button>
-</form>
+            <div class="search">
+                <span class="material-symbols-outlined">search</span>
+                <p class="search-txt">Search in dashboard</p>
+            </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <?php for ($d = 1; $d <= $totalDays; $d++): ?>
-                <th><?= $d ?></th>
-            <?php endfor; ?>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($users as $user): ?>
-            <tr>
-                <td class="name"><?= htmlspecialchars($user['name']) ?></td>
-                <?php for ($d = 1; $d <= $totalDays; $d++): 
-                    $cellDate = new DateTime("$year-$month-$d");
-                    $symbol = $user['attendance'][$d];
-                    if ($cellDate > $today) {
-                        $symbol = '-'; // Future date
-                    }
-                ?>
-                    <td><?= $symbol ?></td>
-                <?php endfor; ?>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+            <div class="settings">
+                <span class="material-symbols-outlined">settings</span>
+            </div>
+
+            <div class="profile">
+                <div class="profile-photo">
+                    <img src="../images/pfp.jpg" alt="Profile">
+                </div>
+                <div class="profile-desc">
+                    <p class="p1">Logged in as,</p>
+                    <p class="p2">Admin</p>
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="month">
+        <h2>Attendance for <?= date('F Y', strtotime("$year-$month-01")) ?></h2>
+        <form method="get">
+            Month: <input type="number" name="month" min="1" max="12" value="<?= $month ?>">
+            Year: <input type="number" name="year" min="2000" max="2100" value="<?= $year ?>">
+            <button type="submit">View</button>
+        </form>
+    </div>
+
+    <div class="main">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <?php for ($d = 1; $d <= $totalDays; $d++): ?>
+                        <th><?= $d ?></th>
+                    <?php endfor; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($users as $user): ?>
+                    <tr>
+                        <td class="name"><?= htmlspecialchars($user['name']) ?></td>
+                        <?php for ($d = 1; $d <= $totalDays; $d++): 
+                            $cellDate = new DateTime("$year-$month-$d");
+                            $symbol = $user['attendance'][$d];
+                            if ($cellDate > $today) {
+                                $symbol = '-'; // Future date
+                            }
+                        ?>
+                            <td><?= $symbol ?></td>
+                        <?php endfor; ?>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 
 </body>
 </html>

@@ -13,7 +13,7 @@
             <div class="logo">
                 <p>nvela.</p>
             </div>
-
+            
             <div class="nav-icons">
                 <a href="#dashboard" class="nav-ico">
                     <span class="material-symbols-outlined">dashboard</span>
@@ -90,20 +90,28 @@
                         5 Changes made to the database.
                     </p>
                 </div>
-                <form class="color-picker" action="">
-                        <fieldset>
-                            <label for="theme">Blue</label>
-                            <input type="radio" class="visually-hidden" name="theme" id="blue" checked>
+                <form class="color-picker">
+                    <fieldset>
+                        <label>
+                            <input type="radio" name="theme" value="beige" checked>
+                            <span class="visually-hidden">Beige</span>
+                        </label>
 
-                            <label for="theme">Midnight</label>
-                            <input type="radio" class="visually-hidden" name="theme" id="midnight">
+                        <label>
+                            <input type="radio" name="theme" value="midnight">
+                            <span class="visually-hidden">Midnight</span>
+                        </label>
 
-                            <label for="theme">Biege</label>
-                            <input type="radio" class="visually-hidden" name="theme" id="biege">
+                        <label>
+                            <input type="radio" name="theme" value="rose">
+                            <span class="visually-hidden">Rose</span>
+                        </label>
 
-                            <label for="theme">Rose</label>
-                            <input type="radio" class="visually-hidden" name="theme" id="rose">
-                        </fieldset>
+                        <label>
+                            <input type="radio" name="theme" value="blue">
+                            <span class="visually-hidden">Blue</span>
+                        </label>
+                    </fieldset>
                 </form>
             </div>
         </div>
@@ -236,5 +244,8 @@
             
         </div>
     </main>
+    <script src="main.js"></script>
+
+
 </body>
 </html>

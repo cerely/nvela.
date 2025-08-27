@@ -23,7 +23,7 @@ $conn->close();
   <header>
     <nav>
       <div class="nav-icon">
-        <a href="#"><img class="icon" src="icons/left back1.svg" alt=""></a>
+        <a href="/main.html"><img class="icon" src="icons/left back1.svg" alt=""></a>
       </div>
       <p class="logo">nvela.</p>
       <div class="right">

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nvela Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .nav-buttons {
+            display: flex;
+            background: #8e7cc3;
+            border-radius: 25px;
+            padding: 0.5rem;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            padding: 0.7rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .search-bar {
+            background: rgba(0,0,0,0.1);
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 25px;
+            width: 300px;
+            color: #666;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .settings-btn {
+            background: #8e7cc3;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 50%;
+            cursor: pointer;
+            color: white;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #8e7cc3;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            color: white;
+        }
+
+        .container {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .welcome {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-title {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .themes {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .theme-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-circle:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-1 { background: linear-gradient(45deg, #8e7cc3, #6b5b95); }
+        .theme-2 { background: linear-gradient(45deg, #4ecdc4, #44a08d); }
+        .theme-3 { background: linear-gradient(45deg, #667eea, #764ba2); }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .widget {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .widget-header {
+            padding: 1.5rem;
+            background: #8e7cc3;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .widget-content {
+            padding: 1.5rem;
+        }
+
+        .menu-item {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 15px;
+            background: rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .menu-item:hover {
+            background: rgba(0,0,0,0.2);
+            transform: translateX(5px);
+        }
+
+        .switch-control {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .power-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            border: none;
+            cursor: pointer;
+            margin: 1rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .power-button:hover {
+            background: #e0e0e0;
+        }
+
+        .power-icon {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #666;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .power-icon::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 20px;
+            background: #666;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .file-name {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .file-size {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .attendance-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: #8e7cc3;
+            color: white;
+            border-radius: 15px;
+        }
+
+        .time-widget {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .time-display {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .weather-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 3rem;
+            font-weight: 100;
+        }
+
+        .chart-widget {
+            grid-column: span 1;
+        }
+
+        .chart-container {
+            height: 200px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: end;
+            height: 100%;
+            gap: 8px;
+            padding: 20px;
+        }
+
+        .chart-bar {
+            background: linear-gradient(to top, #8e7cc3, #b19cd9);
+            border-radius: 4px 4px 0 0;
+            min-width: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .chart-bar:hover {
+            opacity: 0.8;
+        }
+
+        .qr-section {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .qr-placeholder {
+            width: 100px;
+            height: 100px;
+            background: #ddd;
+            margin: 1rem auto;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+
+        .download-btn {
+            background: #8e7cc3;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #7a6ba8;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">nvela.</div>
+        
+        <div class="nav-buttons">
+            <button class="nav-btn active">⊞</button>
+            <button class="nav-btn">📄</button>
+            <button class="nav-btn">↕</button>
+            <button class="nav-btn">☰</button>
+        </div>
+
+        <input type="text" class="search-bar" placeholder="Search in dashboard">
+
+        <div class="user-section">
+            <button class="settings-btn">⚙</button>
+            <div class="user-info">
+                <div class="avatar">👤</div>
+                <div>
+                    <div style="font-size: 0.8rem;">Logged in as,</div>
+                    <div style="font-weight: 600;">Admin</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="welcome">Welcome, <strong>Admin</strong>.</h1>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-title">Marked Attendance</div>
+                <div class="stat-value">
+                    <span>👥</span>
+                    <span>58 Students Marked.</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-title">Files Uploaded</div>
+                <div class="stat-value">
+                    <span>☁</span>
+                    <span>10 Files Uploaded Today.</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-title">Database Updates</div>
+                <div class="stat-value">
+                    <span>📊</span>
+                    <span>5 Changes made to Database.</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-title">Themes</div>
+                <div class="themes">
+                    <div class="theme-circle theme-1"></div>
+                    <div class="theme-circle theme-2"></div>
+                    <div class="theme-circle theme-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <div class="widget">
+                <div class="widget-header">
+                    <span>Recently Marked</span>
+                    <span>↗</span>
+                </div>
+                <div class="widget-content">
+                    <div class="menu-item">
+                        <span>🖥</span>
+                        <span>Screen Savers</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>📝</span>
+                        <span>Notices</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>📅</span>
+                        <span>Schedule</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>📄</span>
+                        <span>Document Viewer</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>🔬</span>
+                        <span>Lab Companion</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget">
+                <div class="widget-header">
+                    <span>Recently Uploaded Files</span>
+                    <span>↗</span>
+                </div>
+                <div class="widget-content">
+                    <div class="file-item">
+                        <span class="file-name">document 2.pdf</span>
+                        <span class="file-size">10 mb</span>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">abcd.jpg</span>
+                        <span class="file-size">121 mb</span>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">document 1.pdf</span>
+                        <span class="file-size">76 mb</span>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">document 2.pdf</span>
+                        <span class="file-size">100 mb</span>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">document 3.pdf</span>
+                        <span class="file-size">76 mb</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget">
+                <div class="widget-header">
+                    <span>Attendance Manager</span>
+                    <span>↗</span>
+                </div>
+                <div class="widget-content">
+                    <div class="attendance-item">
+                        <div>
+                            <div style="font-weight: 600;">Saya Mumbaikar</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">02:08pm</div>
+                        </div>
+                        <div style="font-size: 1.2rem;">70%</div>
+                    </div>
+                    <div class="attendance-item">
+                        <div>
+                            <div style="font-weight: 600;">Saya Mumbaikar</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">02:08pm</div>
+                        </div>
+                        <div style="font-size: 1.2rem;">70%</div>
+                    </div>
+                    <div class="attendance-item">
+                        <div>
+                            <div style="font-weight: 600;">Saya Mumbaikar</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">02:08pm</div>
+                        </div>
+                        <div style="font-size: 1.2rem;">70%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget switch-control">
+                <h3 style="color: #8e7cc3; margin-bottom: 1rem;">Switch Control</h3>
+                <button class="power-button">
+                    <div class="power-icon"></div>
+                </button>
+            </div>
+
+            <div class="widget qr-section">
+                <div style="color: #666; margin-bottom: 1rem;">QR Code</div>
+                <div style="font-weight: 600; color: #8e7cc3; margin-bottom: 1rem;">Download QR Code from Database</div>
+                <div class="qr-placeholder">QR</div>
+                <button class="download-btn">From here</button>
+            </div>
+
+            <div class="widget time-widget">
+                <div class="time-display">02:30 AM</div>
+                <div class="weather-info">
+                    <span>☁</span>
+                    <span>26°</span>
+                </div>
+            </div>
+
+            <div class="widget chart-widget">
+                <div class="widget-content">
+                    <div class="chart-container">
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="height: 40%;"></div>
+                            <div class="chart-bar" style="height: 25%;"></div>
+                            <div class="chart-bar" style="height: 35%;"></div>
+                            <div class="chart-bar" style="height: 20%;"></div>
+                            <div class="chart-bar" style="height: 30%;"></div>
+                            <div class="chart-bar" style="height: 45%;"></div>
+                            <div class="chart-bar" style="height: 55%;"></div>
+                            <div class="chart-bar" style="height: 80%;"></div>
+                            <div class="chart-bar" style="height: 60%;"></div>
+                            <div class="chart-bar" style="height: 35%;"></div>
+                            <div class="chart-bar" style="height: 50%;"></div>
+                            <div class="chart-bar" style="height: 25%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactivity
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelector('.nav-btn.active').classList.remove('active');
+                this.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.theme-circle').forEach(theme => {
+            theme.addEventListener('click', function() {
+                // Theme switching logic can be added here
+                console.log('Theme changed');
+            });
+        });
+
+        document.querySelector('.power-button').addEventListener('click', function() {
+            this.style.background = this.style.background === 'rgb(76, 175, 80)' ? '#f0f0f0' : '#4CAF50';
+        });
+
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', {
+                hour12: true,
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.querySelector('.time-display').textContent = timeString;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Animate chart bars on load
+        setTimeout(() => {
+            document.querySelectorAll('.chart-bar').forEach((bar, index) => {
+                bar.style.animation = `slideUp 0.8s ease ${index * 0.1}s forwards`;
+            });
+        }, 500);
+
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideUp {
+                from {
+                    height: 0%;
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
