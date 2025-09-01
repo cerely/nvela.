@@ -41,7 +41,7 @@ $conn->close();
         <div class="open-content">
           <div class="open-header">
             <span id="openTitle">Documents</span>
-            <button class="close-modal"><img src="icons/close.svg" alt=""></button>
+            <button class="close-modal" onclick="history.back()"><img src="icons/close.svg" alt=""></button>
           </div>
           <div class="modal-body">
 
