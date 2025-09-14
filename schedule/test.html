@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Classroom Timetable</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+    :root {
+    --color-bg: #FFFBEF;
+    --color-light: #A79EA3;
+    --color-dark: #786B76;
+    --color-beige: #CFC9C9;
+    --color-black: #000000;
+    --text-color: #aea8ad;
+    --text-color-1: #A2999F ;
+    --text-color-2: #433B42;
+    --radio-color: var(--color-light);
+
+    --border-radius: 12px;
+    --card-border-radius: 1rem;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        outline: 0;
+        box-sizing: border-box;
+        text-decoration: none;
+        list-style: none;
+        border: none;
+    }
+
+    body {
+        /* height: 100vh;
+        width: 100vh; */
+        font-family: "Poppins", sans-serif;
+        color: var(--text-color-2);
+        background: var(--color-bg);
+        overflow-x: hidden;
+    }
+
+    .navbar {
+        
+        display: flex;
+        /* flex-wrap: wrap; */
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem 1rem 0rem 1rem;
+    }
+
+    .logo {
+        font-weight: bold;
+        font-size: 1.8rem;
+        flex-shrink: 0;
+    }
+
+    /* Navigation Icons */
+    .nav-icons {
+        height: 45px;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7rem;
+        background-color: var(--color-dark);
+        border-radius: var(--border-radius);
+        padding: 0.5rem;
+    }
+
+    .nav-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-icons span {
+        color: var(--text-color);
+    }
+
+    /* Search bar */
+    .search {
+        flex: 1;
+        background-color: var(--color-beige);
+        border-radius: var(--border-radius);
+        height: 50px;
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        min-width: 200px;
+    }
+
+    .search span {
+        margin-right: 10px;
+    }
+
+    .search p {
+        opacity: 50%;
+        font-size: 0.9rem;
+    }
+
+    /* Settings button */
+    .settings {
+        background-color: var(--color-light);
+        padding: 0 1rem;
+        height: 50px;
+        border-radius: var(--border-radius);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 50px;
+    }
+
+    /* Profile section */
+    .profile {
+        background-color: var(--color-dark);
+        border-radius: var(--border-radius);
+        display: flex;
+        /* align-items: center; */
+        gap: 0.5rem;
+        padding: 0.4rem 0.4rem 0;
+        flex-shrink: 0;
+        min-width: 50px;
+    }
+
+    .profile-photo img {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;  
+    }
+
+    .profile-desc .p1 {
+        font-weight: bold;
+        font-size: 0.8rem;
+    }
+
+    .profile-desc .p2 {
+        font-size: 0.9rem;
+    }
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 20px; 
+      background-color: #f5f5f5;
+    }
+    
+    #calendar { 
+      /* max-width: 1000px;  */
+      margin: 0 auto; 
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .fc{
+      background-color: var(--color-dark);
+    }
+
+    .heading{
+      padding-top: 2.5rem;
+      padding-bottom: 2rem;
+      text-align: center;
+    }
+    
+    .instructions {
+      display: none;
+      background-color: #e3f2fd;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #3a87ad;
+    }
+    
+    .instructions h3 {
+      margin-top: 0;
+      color: #3a87ad;
+    }
+    
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+    
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 30px;
+      border: none;
+      border-radius: 15px;
+      width: 400px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      line-height: 1;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: #000;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #3a87ad;
+    }
+    
+    .modal-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 25px;
+    }
+    
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    
+    .btn-primary {
+      background-color: #3a87ad;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #2c6c8a;
+    }
+    
+    .btn-secondary {
+      background-color: #6c757d;
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #545b62;
+    }
+    
+    .selection-info {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #28a745;
+    }
+  </style>
+</head>
+<body>
+  <header>
+        <nav class="navbar">
+            <div class="logo">
+                <p>nvela.</p>
+            </div>
+            
+            <div class="nav-icons">
+                <a href="localhost/NVELAMAIN/main.html" class="nav-ico">
+                    <span class="material-symbols-outlined">dashboard</span>
+                </a>
+                <a href="http://localhost/NVELAMAIN/document/nvela.php" class="nav-ico">
+                    <span class="material-symbols-outlined">description</span>
+                </a>
+                <a href="#control" class="nav-ico">
+                    <span class="material-symbols-outlined">discover_tune</span>
+                </a>
+                <a href="#database" class="nav-ico">
+                    <span class="material-symbols-outlined">database</span>
+                </a>
+            </div>
+
+            <div class="search">
+                <span class="material-symbols-outlined">search</span>
+                <p class="search-txt">Search in dashboard</p>
+            </div>
+
+            <div class="settings">
+                <span class="material-symbols-outlined">settings</span>
+            </div>
+
+            <div class="profile">
+                <div class="profile-photo">
+                    <img src="../images/pfp.jpg" alt="Profile">
+                </div>
+                <div class="profile-desc">
+                    <p class="p1">Logged in as,</p>
+                    <p class="p2">Admin</p>
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
+
+  <h1 class="heading">Weekly Classroom Timetable</h1>
+
+  <div class="instructions">
+    <h3>📋 How to use:</h3>
+    <p><strong>Click and drag</strong> on the calendar to select a time range, then fill in the subject details</p>
+    <p><strong>💡 Tip:</strong> Click on any existing event to remove it</p>
+  </div>
+
+  <!-- Calendar -->
+  <div id="calendar"></div>
+
+  <!-- Modal Dialog -->
+  <div id="subjectModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>📚 Add New Subject</h2>
+      
+      <div class="selection-info">
+        <strong>Selected Time:</strong> <span id="selectedTimeInfo"></span>
+      </div>
+      
+      <form id="modalForm">
+        <div class="form-group">
+          <label for="modalSubject">Subject Name:</label>
+          <input type="text" id="modalSubject" placeholder="e.g., Mathematics, Physics" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="modalProfessor">Professor In-Charge:</label>
+          <input type="text" id="modalProfessor" placeholder="e.g., Dr. Smith" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="modalColor">Color:</label>
+          <input type="color" id="modalColor" value="#3a87ad">
+        </div>
+        
+        <div class="form-group">
+          <label for="modalRepeat">Repeat:</label>
+          <select id="modalRepeat" required>
+            <option value="weekly">Every week</option>
+            <option value="once">This week only</option>
+          </select>
+        </div>
+        
+        <div class="modal-buttons">
+          <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+          <button type="submit" class="btn-primary">Add Subject</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load saved events
+      let savedEvents = [];
+      try {
+        savedEvents = JSON.parse(localStorage.getItem("timetable")) || [];
+      } catch (e) {
+        console.log('No saved events found');
+      }
+
+      let calendarEl = document.getElementById('calendar');
+      let calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        slotMinTime: "08:00:00",
+        slotMaxTime: "18:00:00",
+        slotDuration: "00:30:00",
+        hiddenDays: [0], // Hide Sunday
+        events: savedEvents,
+        selectable: true,
+        selectMirror: true,
+        unselectAuto: true,
+        
+        // Handle time range selection (drag)
+        select: function(info) {
+          openSubjectModal(info.start, info.end);
+          calendar.unselect(); // Clear selection immediately
+        },
+        
+        // Handle clicking existing events to delete
+        eventClick: function(info) {
+          let eventTitle = info.event.title.split('\n')[0]; // Get just subject name
+          if (confirm(`🗑️ Remove "${eventTitle}"?`)) {
+            info.event.remove();
+            saveEvents();
+            showMessage(`❌ ${eventTitle} removed`);
+          }
+        }
+      });
+      
+      calendar.render();
+
+      // Open modal with selected time info
+      function openSubjectModal(startTime, endTime) {
+        let startStr = startTime.toLocaleTimeString('en-US', {
+          hour12: false, 
+          hour: '2-digit', 
+          minute: '2-digit'
+        });
+        let endStr = endTime.toLocaleTimeString('en-US', {
+          hour12: false, 
+          hour: '2-digit', 
+          minute: '2-digit'
+        });
+        let dayStr = startTime.toLocaleDateString('en-US', {weekday: 'long'});
+        
+        document.getElementById('selectedTimeInfo').textContent = 
+          `${dayStr}, ${startStr} - ${endStr}`;
+        
+        // Store selection data for form submission
+        window.currentSelection = {
+          start: startTime,
+          end: endTime
+        };
+        
+        document.getElementById('subjectModal').style.display = 'block';
+        document.getElementById('modalSubject').focus();
+      }
+
+      // Modal form submission
+      document.getElementById('modalForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        let subject = document.getElementById('modalSubject').value;
+        let professor = document.getElementById('modalProfessor').value;
+        let color = document.getElementById('modalColor').value;
+        let repeatOption = document.getElementById('modalRepeat').value;
+
+        let selection = window.currentSelection;
+        let eventTitle = `${subject}\n👨‍🏫 ${professor}`;
+
+        if (repeatOption === "weekly") {
+          let dayOfWeek = selection.start.getDay();
+          let startTimeStr = selection.start.toTimeString().substring(0, 5);
+          let endTimeStr = selection.end.toTimeString().substring(0, 5);
+          
+          calendar.addEvent({
+            title: eventTitle,
+            daysOfWeek: [dayOfWeek],
+            startTime: startTimeStr,
+            endTime: endTimeStr,
+            backgroundColor: color,
+            borderColor: color,
+            extendedProps: { professor, subject }
+          });
+        } else {
+          calendar.addEvent({
+            title: eventTitle,
+            start: selection.start.toISOString(),
+            end: selection.end.toISOString(),
+            backgroundColor: color,
+            borderColor: color,
+            extendedProps: { professor, subject }
+          });
+        }
+
+        saveEvents();
+        closeModal();
+        this.reset();
+        showMessage(`✅ ${subject} added successfully!`);
+      });
+
+      // Modal controls
+      let modal = document.getElementById('subjectModal');
+      
+      function closeModal() {
+        modal.style.display = 'none';
+        calendar.unselect(); // This clears the blue highlighting!
+        window.currentSelection = null;
+      }
+
+      document.querySelector('.close').onclick = closeModal;
+      document.getElementById('cancelBtn').onclick = closeModal;
+      
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          closeModal();
+        }
+      }
+
+      // Escape key handling
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.style.display === 'block') {
+          closeModal();
+        }
+      });
+
+      // Save events to localStorage
+      function saveEvents() {
+        let events = calendar.getEvents().map(event => {
+          let eventData = {
+            title: event.title,
+            backgroundColor: event.backgroundColor,
+            borderColor: event.borderColor
+          };
+          
+          if (event.start && event.end) {
+            if (event.extendedProps && Array.isArray(event.extendedProps.daysOfWeek)) {
+              eventData.daysOfWeek = event.extendedProps.daysOfWeek;
+              eventData.startTime = event.start.toTimeString().substring(0, 5);
+              eventData.endTime = event.end.toTimeString().substring(0, 5);
+            } else {
+              eventData.start = event.start.toISOString();
+              eventData.end = event.end.toISOString();
+            }
+          }
+          
+          if (event.extendedProps) {
+            eventData.extendedProps = event.extendedProps;
+          }
+          
+          return eventData;
+        });
+        
+        localStorage.setItem("timetable", JSON.stringify(events));
+      }
+
+      // Show temporary messages
+      function showMessage(text) {
+        let existing = document.querySelector('.temp-message');
+        if (existing) existing.remove();
+        
+        let msg = document.createElement('div');
+        msg.className = 'temp-message';
+        msg.textContent = text;
+        msg.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: #4caf50;
+          color: white;
+          padding: 12px 20px;
+          border-radius: 8px;
+          z-index: 1001;
+          font-weight: bold;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        `;
+        document.body.appendChild(msg);
+        
+        setTimeout(() => {
+          if (msg.parentNode) msg.remove();
+        }, 3000);
+      }
+    });
+  </script>
+</body>
+</html>

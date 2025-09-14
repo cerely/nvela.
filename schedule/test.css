@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --color-bg: #FFFBEF;
+    --color-light-blue: #A3C8DA;
+    --color-dark-blue: #659BB8;
+    --color-beige: #EDE9E0;
+    --color-black: #000000;
+
+    --border-radius: 2rem;
+    --card-border-radius: 1rem;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    color: var(--color-black);
+    background: var(--color-bg);
+    overflow-x: hidden;
+    padding: 1rem;
+}
+
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+/* Navigation Icons */
+.nav-icons {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    background-color: var(--color-dark-blue);
+    border-radius: 22px;
+    padding: 0.5rem;
+}
+
+.nav-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-icons span {
+    color: var(--color-bg);
+}
+
+/* Search bar */
+.search {
+    flex: 1;
+    background-color: var(--color-beige);
+    border-radius: var(--border-radius);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    min-width: 200px;
+}
+
+.search span {
+    margin-right: 10px;
+}
+
+.search p {
+    opacity: 50%;
+    font-size: 0.9rem;
+}
+
+/* Settings button */
+.settings {
+    background-color: var(--color-light-blue);
+    padding: 0 1rem;
+    height: 50px;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+}
+
+/* Profile section */
+.profile {
+    background-color: var(--color-dark-blue);
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1rem;
+    flex-shrink: 0;
+}
+
+.profile-photo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.profile-desc .p1 {
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.profile-desc .p2 {
+    font-size: 0.9rem;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 992px) {
+    .navbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nav-icons {
+        gap: 2rem;
+        width: 100%;
+    }
+
+    .search, .settings, .profile {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .nav-icons {
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .search p {
+        display: none; /* Hide text on very small screens */
+    }
+}
