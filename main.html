@@ -15,7 +15,7 @@
             </div>
             
             <div class="nav-icons">
-                <a href="localhost/NVELAMAIN/main.html" class="nav-ico">
+                <a href="http://10.169.34.71:5500/main.html" class="nav-ico">
                     <span class="material-symbols-outlined">dashboard</span>
                 </a>
                 <a href="http://localhost/NVELAMAIN/document/nvela.php" class="nav-ico">
@@ -59,13 +59,11 @@
             <div class="info">
                 <div class="marked-attendance">
                     <p class="mark">
-                        Marked Attendance
+                        Current Lab
                     </p>
                     <p class="info-link">
-                        <span class="material-symbols-outlined">
-                            punch_clock
-                        </span>
-                        58 Students Marked
+                        <span class="material-symbols-outlined">punch_clock</span>
+                        <span id="current-subject">Loading...</span>
                     </p>
                 </div>
                 <div class="files-uploaded">
@@ -125,7 +123,7 @@
                     </div>
                     <div class="rec" class="notices">
                         <span class="material-symbols-outlined">brand_awareness</span>
-                        <p>Notices</p>
+                        <a href="http://localhost/NVELAMAIN/notice/notice.php"><p>Notices</p></a>
                     </div>
                     <div class="rec" class="schedule">
                         <span class="material-symbols-outlined">calendar_month</span>
@@ -134,7 +132,7 @@
                     </div>
                     <div class="rec" class="document-viewer">
                         <span class="material-symbols-outlined">description</span>
-                        <a href="nvela.php"><p>Document Viewer</p></a>
+                        <a href="http://localhost/NVELAMAIN/document/nvela.php"><p>Document Viewer</p></a>
                     </div>
                     <div class="rec" class="lab-companion">
                         <span class="material-symbols-outlined">smart_toy</span>
@@ -145,32 +143,30 @@
             <div class="switch-control" style="grid-area: box-2">
                 <div class="button">
                     <div class="button-in">
-                        <div class="power-symbol"></div>
+                        <div class="power-symbol"><button class="on" onclick="sendCommand('on')"></button></div>
                     </div>
                 </div>
                 <p>Switch Control</p>
             </div>
             <div class="recently-uploaded" style="grid-area: box-3">
+                <div class="recently-uploaded" style="grid-area: box-3">
                 <div class="recent">
                     <p>Recently Uploaded Files</p>
-                    <span class="material-symbols-outlined">open_in_full</span>
+                    <!-- <span class="material-symbols-outlined">open_in_full</span> -->
                 </div>
+
                 <div class="files">
-                    <div class="list">
-                        <p>document1.pdf</p>
-                        <p>document2.pdf</p>
-                        <p>document3.pdf</p>
-                        <p>document4.pdf</p>
-                        <p>document5.pdf</p>
+                    <!-- Keep your exact structure -->
+                    <div class="list" id="file-list">
+                    <p>Loading files...</p>
                     </div>
-                    <div class="size">
-                        <p>2MB</p>
-                        <p>2MB</p>
-                        <p>2MB</p>
-                        <p>2MB</p>
-                        <p>2MB</p>
+                    <div class="size" id="file-size">
+                    <p>—</p>
                     </div>
                 </div>
+                </div>
+
+
             </div>
             <div class="attendance-manager" style="grid-area: box-4a">
                 <div class="att">
@@ -207,7 +203,7 @@
                     </div>
                 </div>
                 <div class="chart">
-                    <img src="/images/group117.png" alt="">
+                    <img src="/images/bar.png" alt="">
                 </div>
             </div>
             <div class="download-qr" style="grid-area: box-5;">
@@ -215,7 +211,7 @@
                     <p class="qr-title">QR Code</p>
                     <p class="qr-head">Download QR Code from the Database</p>
                     <div class="btnn">
-                        <button class="qr-btn">From here</button>
+                        <button class="qr-btn" onclick="window.location.href='http://localhost/NVELAMAIN/qrcode/display.php'">From here</button>
                     </div>
                 </div>
             </div>

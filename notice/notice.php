@@ -426,7 +426,7 @@ textarea {
             </div>
             
             <div class="nav-icons">
-                <a href="localhost/NVELAMAIN/main.html" class="nav-ico">
+                <a href="http://10.169.34.71:5500/main.html" class="nav-ico">
                     <span class="material-symbols-outlined">dashboard</span>
                 </a>
                 <a href="http://localhost/NVELAMAIN/document/nvela.php" class="nav-ico">

@@ -38,18 +38,14 @@
     }
 
     body {
-        /* height: 100vh;
-        width: 100vh; */
         font-family: "Poppins", sans-serif;
         color: var(--text-color-2);
-        background: var(--color-bg);
+        background: #F5F4F8;
         overflow-x: hidden;
     }
 
     .navbar {
-        
         display: flex;
-        /* flex-wrap: wrap; */
         align-items: center;
         gap: 1rem;
         padding: 0.5rem 1rem 0rem 1rem;
@@ -61,7 +57,6 @@
         flex-shrink: 0;
     }
 
-    /* Navigation Icons */
     .nav-icons {
         height: 45px;
         flex: 1;
@@ -84,7 +79,6 @@
         color: var(--text-color);
     }
 
-    /* Search bar */
     .search {
         flex: 1;
         background-color: var(--color-beige);
@@ -105,7 +99,6 @@
         font-size: 0.9rem;
     }
 
-    /* Settings button */
     .settings {
         background-color: var(--color-light);
         padding: 0 1rem;
@@ -117,12 +110,10 @@
         min-width: 50px;
     }
 
-    /* Profile section */
     .profile {
         background-color: var(--color-dark);
         border-radius: var(--border-radius);
         display: flex;
-        /* align-items: center; */
         gap: 0.5rem;
         padding: 0.4rem 0.4rem 0;
         flex-shrink: 0;
@@ -143,28 +134,78 @@
     .profile-desc .p2 {
         font-size: 0.9rem;
     }
-    body { 
-      font-family: Arial, sans-serif; 
-      margin: 20px; 
-      background-color: #f5f5f5;
-    }
     
     #calendar { 
-      /* max-width: 1000px;  */
-      margin: 0 auto; 
-      background-color: white;
+      margin: 1rem; 
+      background-color: #ffffff;
       border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(120, 107, 118, 0.12);
       overflow: hidden;
     }
 
     .fc{
+      background-color: #ffffff;
+    }
+
+        /* FullCalendar custom styling to match palette */
+    .fc .fc-toolbar {
       background-color: var(--color-dark);
+      padding: 1rem;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .fc .fc-toolbar-title {
+      color: #ffffff;
+    }
+
+    .fc .fc-button {
+      background-color: var(--color-light);
+      border: none;
+      color: #ffffff;
+    }
+
+    .fc .fc-button:hover {
+      background-color: #8e858a;
+    }
+
+    .fc .fc-button-active {
+      background-color: #7a6f76 !important;
+    }
+
+    .fc-theme-standard td,
+    .fc-theme-standard th {
+      border-color: #e8e6ef;
+    }
+
+    .fc .fc-col-header-cell {
+      background-color: #f5f4f8;
+      color: var(--text-color-2);
+      font-weight: 600;
+    }
+
+    .fc .fc-timegrid-slot {
+      height: 0em;
+    }
+
+    .fc .fc-timegrid-slot-label {
+      color: var(--text-color-1);
+    }
+
+    .fc-daygrid-day-frame {
+      background-color: #ffffff;
+    }
+
+    .fc .fc-timegrid-col.fc-day-today {
+      background-color: #faf9fc !important;
+    }
+
+    .fc .fc-highlight {
+      background-color: rgba(167, 158, 163, 0.15) !important;
     }
 
     .heading{
       padding-top: 2.5rem;
-      padding-bottom: 2rem;
+      padding-bottom: rem;
       text-align: center;
     }
     
@@ -173,7 +214,7 @@
       background-color: #e3f2fd;
       padding: 15px;
       border-radius: 8px;
-      margin-bottom: 20px;
+      margin: 20px;
       border-left: 4px solid #3a87ad;
     }
     
@@ -182,7 +223,6 @@
       color: #3a87ad;
     }
     
-    /* Modal Styles */
     .modal {
       display: none;
       position: fixed;
@@ -196,7 +236,7 @@
     
     .modal-content {
       background-color: #fefefe;
-      margin: 15% auto;
+      margin: 5% auto;
       padding: 30px;
       border: none;
       border-radius: 15px;
@@ -242,7 +282,7 @@
     .form-group input:focus,
     .form-group select:focus {
       outline: none;
-      border-color: #3a87ad;
+      border-color: #786B76;
     }
     
     .modal-buttons {
@@ -262,12 +302,12 @@
     }
     
     .btn-primary {
-      background-color: #3a87ad;
+      background-color: var(--color-dark);
       color: white;
     }
     
     .btn-primary:hover {
-      background-color: #2c6c8a;
+      background-color: #6a5e68;
     }
     
     .btn-secondary {
@@ -284,7 +324,16 @@
       padding: 15px;
       border-radius: 8px;
       margin-bottom: 20px;
-      border-left: 4px solid #28a745;
+      border-left: 4px solid var(--color-dark);
+    }
+
+    .error-message {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 20px;
+      border-left: 4px solid #f5c6cb;
     }
   </style>
 </head>
@@ -296,7 +345,7 @@
             </div>
             
             <div class="nav-icons">
-                <a href="localhost/NVELAMAIN/main.html" class="nav-ico">
+                <a href="http://10.169.34.71:5500/main.html" class="nav-ico">
                     <span class="material-symbols-outlined">dashboard</span>
                 </a>
                 <a href="http://localhost/NVELAMAIN/document/nvela.php" class="nav-ico">
@@ -326,7 +375,6 @@
                 <div class="profile-desc">
                     <p class="p1">Logged in as,</p>
                     <p class="p2">Admin</p>
-                    
                 </div>
             </div>
         </nav>
@@ -340,14 +388,12 @@
     <p><strong>💡 Tip:</strong> Click on any existing event to remove it</p>
   </div>
 
-  <!-- Calendar -->
   <div id="calendar"></div>
 
-  <!-- Modal Dialog -->
   <div id="subjectModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <h2>📚 Add New Subject</h2>
+      <h2>Add New Subject</h2>
       
       <div class="selection-info">
         <strong>Selected Time:</strong> <span id="selectedTimeInfo"></span>
@@ -356,12 +402,12 @@
       <form id="modalForm">
         <div class="form-group">
           <label for="modalSubject">Subject Name:</label>
-          <input type="text" id="modalSubject" placeholder="e.g., Mathematics, Physics" required>
+          <input type="text" id="modalSubject" placeholder="e.g., IoT, Cloud Computing" required>
         </div>
         
         <div class="form-group">
           <label for="modalProfessor">Professor In-Charge:</label>
-          <input type="text" id="modalProfessor" placeholder="e.g., Dr. Smith" required>
+          <input type="text" id="modalProfessor" placeholder="" required>
         </div>
         
         <div class="form-group">
@@ -385,199 +431,219 @@
     </div>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Load saved events
-      let savedEvents = [];
-      try {
-        savedEvents = JSON.parse(localStorage.getItem("timetable")) || [];
-      } catch (e) {
-        console.log('No saved events found');
-      }
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const calendarEl = document.getElementById('calendar');
+  const modal = document.getElementById('subjectModal');
+  const closeBtn = document.querySelector('.close');
+  const cancelBtn = document.getElementById('cancelBtn');
+  const modalForm = document.getElementById('modalForm');
+  let currentSelection = null;
 
-      let calendarEl = document.getElementById('calendar');
-      let calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek',
-        slotMinTime: "08:00:00",
-        slotMaxTime: "18:00:00",
-        slotDuration: "00:30:00",
-        hiddenDays: [0], // Hide Sunday
-        events: savedEvents,
-        selectable: true,
-        selectMirror: true,
-        unselectAuto: true,
+  // FullCalendar initialization
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    selectable: true,
+    initialView: 'timeGridWeek',
+    initialDate: new Date(), // Start with current week
+    slotDuration: '00:30:00',
+    allDaySlot: false,
+    slotMinTime: '07:00:00',
+    slotMaxTime: '17:00:00',
+    expandRows: true,
+    height: 'auto',
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'timeGridWeek,timeGridDay'
+    },
+    validRange: {
+      start: '2025-01-01',
+      end: '2026-12-31'
+    },
+    
+    // Handle time slot selection
+    select: function(info) {
+      currentSelection = info;
+      
+      // Format and display selected time
+      const startTime = info.start.toLocaleString('en-US', { 
+        weekday: 'long', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      });
+      const endTime = info.end.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      });
+      
+      document.getElementById('selectedTimeInfo').textContent = `${startTime} - ${endTime}`;
+      modal.style.display = 'block';
+      
+      // Clear previous values
+      document.getElementById('modalSubject').value = '';
+      document.getElementById('modalProfessor').value = '';
+      document.getElementById('modalColor').value = '#3a87ad';
+    },
+    
+    // Handle event click (for deletion)
+    eventClick: function(info) {
+      if (confirm(`Delete "${info.event.title}"?`)) {
+        const eventId = info.event.id;
         
-        // Handle time range selection (drag)
-        select: function(info) {
-          openSubjectModal(info.start, info.end);
-          calendar.unselect(); // Clear selection immediately
-        },
-        
-        // Handle clicking existing events to delete
-        eventClick: function(info) {
-          let eventTitle = info.event.title.split('\n')[0]; // Get just subject name
-          if (confirm(`🗑️ Remove "${eventTitle}"?`)) {
+        // Delete from database
+        fetch('http://localhost/NVELAMAIN/schedule/delete_subject.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: 'id=' + encodeURIComponent(eventId)
+        })
+        .then(response => response.text())
+        .then(data => {
+          if (data.trim() === 'success') {
             info.event.remove();
-            saveEvents();
-            showMessage(`❌ ${eventTitle} removed`);
+            alert('Subject deleted successfully!');
+          } else {
+            alert('Delete failed: ' + data);
           }
-        }
-      });
-      
-      calendar.render();
-
-      // Open modal with selected time info
-      function openSubjectModal(startTime, endTime) {
-        let startStr = startTime.toLocaleTimeString('en-US', {
-          hour12: false, 
-          hour: '2-digit', 
-          minute: '2-digit'
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Connection error while deleting.');
         });
-        let endStr = endTime.toLocaleTimeString('en-US', {
-          hour12: false, 
-          hour: '2-digit', 
-          minute: '2-digit'
-        });
-        let dayStr = startTime.toLocaleDateString('en-US', {weekday: 'long'});
-        
-        document.getElementById('selectedTimeInfo').textContent = 
-          `${dayStr}, ${startStr} - ${endStr}`;
-        
-        // Store selection data for form submission
-        window.currentSelection = {
-          start: startTime,
-          end: endTime
-        };
-        
-        document.getElementById('subjectModal').style.display = 'block';
-        document.getElementById('modalSubject').focus();
       }
-
-      // Modal form submission
-      document.getElementById('modalForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        let subject = document.getElementById('modalSubject').value;
-        let professor = document.getElementById('modalProfessor').value;
-        let color = document.getElementById('modalColor').value;
-        let repeatOption = document.getElementById('modalRepeat').value;
-
-        let selection = window.currentSelection;
-        let eventTitle = `${subject}\n👨‍🏫 ${professor}`;
-
-        if (repeatOption === "weekly") {
-          let dayOfWeek = selection.start.getDay();
-          let startTimeStr = selection.start.toTimeString().substring(0, 5);
-          let endTimeStr = selection.end.toTimeString().substring(0, 5);
-          
-          calendar.addEvent({
-            title: eventTitle,
-            daysOfWeek: [dayOfWeek],
-            startTime: startTimeStr,
-            endTime: endTimeStr,
-            backgroundColor: color,
-            borderColor: color,
-            extendedProps: { professor, subject }
-          });
-        } else {
-          calendar.addEvent({
-            title: eventTitle,
-            start: selection.start.toISOString(),
-            end: selection.end.toISOString(),
-            backgroundColor: color,
-            borderColor: color,
-            extendedProps: { professor, subject }
-          });
-        }
-
-        saveEvents();
-        closeModal();
-        this.reset();
-        showMessage(`✅ ${subject} added successfully!`);
-      });
-
-      // Modal controls
-      let modal = document.getElementById('subjectModal');
-      
-      function closeModal() {
-        modal.style.display = 'none';
-        calendar.unselect(); // This clears the blue highlighting!
-        window.currentSelection = null;
-      }
-
-      document.querySelector('.close').onclick = closeModal;
-      document.getElementById('cancelBtn').onclick = closeModal;
-      
-      window.onclick = function(event) {
-        if (event.target == modal) {
-          closeModal();
-        }
-      }
-
-      // Escape key handling
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.style.display === 'block') {
-          closeModal();
-        }
-      });
-
-      // Save events to localStorage
-      function saveEvents() {
-        let events = calendar.getEvents().map(event => {
-          let eventData = {
-            title: event.title,
-            backgroundColor: event.backgroundColor,
-            borderColor: event.borderColor
-          };
-          
-          if (event.start && event.end) {
-            if (event.extendedProps && Array.isArray(event.extendedProps.daysOfWeek)) {
-              eventData.daysOfWeek = event.extendedProps.daysOfWeek;
-              eventData.startTime = event.start.toTimeString().substring(0, 5);
-              eventData.endTime = event.end.toTimeString().substring(0, 5);
-            } else {
-              eventData.start = event.start.toISOString();
-              eventData.end = event.end.toISOString();
+    },
+    
+    // Fetch events from database
+    events: function(info, successCallback, failureCallback) {
+      console.log('Fetching events from database...');
+      fetch('http://localhost/NVELAMAIN/schedule/fetch_subjects.php')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then(text => {
+          console.log('Raw response from server:', text);
+          try {
+            const data = JSON.parse(text);
+            console.log('Parsed events data:', data);
+            console.log('Number of events:', data.length);
+            if (data.length > 0) {
+              console.log('First event:', data[0]);
             }
+            successCallback(data);
+          } catch (e) {
+            console.error('JSON parse error:', e);
+            console.error('Response was:', text);
+            alert('Error loading events. Check console for details.');
+            successCallback([]);
           }
-          
-          if (event.extendedProps) {
-            eventData.extendedProps = event.extendedProps;
-          }
-          
-          return eventData;
+        })
+        .catch(error => {
+          console.error('Error fetching events:', error);
+          failureCallback(error);
         });
-        
-        localStorage.setItem("timetable", JSON.stringify(events));
-      }
+    }
+  });
+  
+  calendar.render();
 
-      // Show temporary messages
-      function showMessage(text) {
-        let existing = document.querySelector('.temp-message');
-        if (existing) existing.remove();
-        
-        let msg = document.createElement('div');
-        msg.className = 'temp-message';
-        msg.textContent = text;
-        msg.style.cssText = `
-          position: fixed;
-          top: 20px;
-          right: 20px;
-          background: #4caf50;
-          color: white;
-          padding: 12px 20px;
-          border-radius: 8px;
-          z-index: 1001;
-          font-weight: bold;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        `;
-        document.body.appendChild(msg);
-        
-        setTimeout(() => {
-          if (msg.parentNode) msg.remove();
-        }, 3000);
+  // Close modal handlers
+  closeBtn.onclick = function() {
+    modal.style.display = 'none';
+  };
+  
+  cancelBtn.onclick = function() {
+    modal.style.display = 'none';
+  };
+  
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+
+  // Form submission
+  modalForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const subjectName = document.getElementById('modalSubject').value.trim();
+    const professor = document.getElementById('modalProfessor').value.trim();
+    const color = document.getElementById('modalColor').value;
+    const repeat = document.getElementById('modalRepeat').value;
+    
+    if (!subjectName || !professor) {
+      alert('Please fill in all required fields!');
+      return;
+    }
+    
+    if (!currentSelection) {
+      alert('No time slot selected!');
+      return;
+    }
+    
+    // Get the actual selected dates from the calendar
+    const start = currentSelection.start;
+    const end = currentSelection.end;
+    
+    // Format dates for MySQL datetime (YYYY-MM-DD HH:MM:SS)
+    const formatDateTime = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    };
+    
+    const startStr = formatDateTime(start);
+    const endStr = formatDateTime(end);
+    const dayName = start.toLocaleDateString('en-US', { weekday: 'long' });
+    
+    // Prepare form data
+    const formData = new URLSearchParams();
+    formData.append('subject_name', subjectName);
+    formData.append('professor', professor);
+    formData.append('color', color);
+    formData.append('start_time', startStr);
+    formData.append('end_time', endStr);
+    formData.append('day', dayName);
+    formData.append('repeat', repeat);
+    
+    console.log('Sending data:', Object.fromEntries(formData));
+    console.log('Start time:', startStr);
+    console.log('End time:', endStr);
+    console.log('Day:', dayName);
+    
+    // Send to server
+    fetch('http://localhost/NVELAMAIN/schedule/save_subject.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: formData.toString()
+    })
+    .then(response => response.text())
+    .then(data => {
+      console.log('Server response:', data);
+      if (data.trim() === 'success') {
+        modal.style.display = 'none';
+        calendar.refetchEvents();
+        alert('Subject added successfully!');
+      } else {
+        alert('Save failed: ' + data);
       }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Connection error. Check if PHP server is running and paths are correct.');
     });
-  </script>
+  });
+});
+</script>
+
 </body>
 </html>

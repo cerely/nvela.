@@ -51,66 +51,107 @@ setInterval(updateWeather, 10 * 60 * 1000);
 updateWeather();
 
 
-// ===== NEWS UPDATE (NewsAPI) =====
+// ===== NEWS UPDATE (robust RSS via AllOrigins raw with fallback) =====
 const newsContainer = document.getElementById('news');
-// Proxy to bypass CORS
-
 let headlines = [];
 let currentIndex = 0;
+const newsUrl = "https://techcrunch.com/feed/"; // feed URL
 
-const newsUrl = "https://www.techcrunch.com/feed/";
-function base64ToUtf8(base64) {
-    return decodeURIComponent(
-        atob(base64)
-        .split('')
-        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
-    );
+function safeText(node) {
+  return node ? node.textContent.trim() : null;
 }
+
 async function fetchNews() {
-    try {
-        const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(newsUrl)}`);
-        const data = await response.json();
-        const base64String = data.contents.split(",")[1]
-        const xmlText = base64ToUtf8(base64String);
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, "application/xml");
-        const items = xmlDoc.querySelectorAll("item");
-        console.log(xmlDoc)
-        items.forEach(item => {
-            headlines.push({
-                title: item.querySelector("title").textContent,
-                url: item.querySelector("link").textContent
-            });
-        });
-        if (headlines.length > 0) {
-            console.log(headlines)
-            currentIndex = 0;
-            showHeadline(); // You need to define this function
-        } else {
-            newsContainer.innerHTML = '<p>No technology news available.</p>';
+  try {
+    // try AllOrigins raw first (returns plain text)
+    const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(newsUrl)}`;
+    const resp = await fetch(proxy);
+    if (!resp.ok) throw new Error('Network response not ok: ' + resp.status);
+    let text = await resp.text();
+
+    // clean BOM or stray control chars that break XML parsing
+    text = text.replace(/^\uFEFF/, '').replace(/\0/g, '');
+
+    // attempt XML parse
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(text, "application/xml");
+
+    // parsererror check
+    const parserError = xmlDoc.querySelector('parsererror');
+    if (!parserError) {
+      // Good parse: extract <item> nodes
+      const items = xmlDoc.querySelectorAll('item');
+      headlines = []; // reset to avoid duplicates
+      items.forEach(item => {
+        // title might be inside <title>, link might be text content or href attribute for some feeds
+        const title = safeText(item.querySelector('title')) || '';
+        let link = safeText(item.querySelector('link')) || '';
+        // sometimes <link> is an element with href attribute (atom) or contains CDATA
+        if (!link) {
+          const linkEl = item.querySelector('link[href]');
+          if (linkEl) link = linkEl.getAttribute('href');
         }
+        // sometimes link is inside <guid> or <enclosure url="">
+        if (!link) {
+          link = safeText(item.querySelector('guid')) || (item.querySelector('enclosure') ? item.querySelector('enclosure').getAttribute('url') : '');
+        }
+        if (title && link) headlines.push({ title, url: link });
+      });
 
-    } catch (error) {
-        console.error('Error fetching news:', error);
-        newsContainer.innerHTML = '<p>Failed to load news.</p>';
+      if (headlines.length === 0) {
+        newsContainer.innerHTML = '<p>No technology news available.</p>';
+      } else {
+        currentIndex = 0;
+        showHeadline();
+      }
+      return;
     }
+
+    // If parser errored, fall back to a regex-based extraction for <item> ... </item>
+    console.warn('XML parsererror, falling back to regex extraction.');
+    const itemBlocks = Array.from(text.matchAll(/<item[\s\S]*?<\/item>/gi), m => m[0]);
+    headlines = [];
+    itemBlocks.forEach(block => {
+      // extract title and link with regex / handle CDATA
+      const tMatch = block.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i);
+      const lMatch = block.match(/<link\b[^>]*>([\s\S]*?)<\/link>/i) || block.match(/<link[^>]*href=["']([^"']+)["'][^>]*>/i);
+      let title = tMatch ? tMatch[1].replace(/<!\[CDATA\[|\]\]>/g, '').trim() : null;
+      let link  = lMatch ? (lMatch[1] || lMatch[0]).replace(/<!\[CDATA\[|\]\]>/g, '').trim() : null;
+
+      // additional fallback: guid tag
+      if (!link) {
+        const gMatch = block.match(/<guid\b[^>]*>([\s\S]*?)<\/guid>/i);
+        link = gMatch ? gMatch[1].replace(/<!\[CDATA\[|\]\]>/g, '').trim() : null;
+      }
+
+      if (title && link) headlines.push({ title, url: link });
+    });
+
+    if (headlines.length === 0) {
+      newsContainer.innerHTML = '<p>Could not parse feed (fallback failed).</p>';
+    } else {
+      currentIndex = 0;
+      showHeadline();
+    }
+
+  } catch (err) {
+    console.error('Error fetching/parsing news:', err);
+    newsContainer.innerHTML = '<p>Failed to load news.</p>';
+  }
 }
 
-
-// Display one headline at a time
 function showHeadline() {
-    console.log(headlines)
-    const headline = headlines[currentIndex];
-    newsContainer.innerHTML = `<p><a href="${headline.url}" target="_blank">${headline.title}</a></p>`;
-
-    currentIndex = (currentIndex + 1) % headlines.length;
-}
-// Rotate headlines every 60 seconds
-function startNewsRotation() {
-    showHeadline(); // show first headline immediately
-    setInterval(showHeadline, 20 * 1000);
+  if (!headlines || headlines.length === 0) {
+    newsContainer.innerHTML = '<p>No headlines yet.</p>';
+    return;
+  }
+  const h = headlines[currentIndex];
+  newsContainer.innerHTML = `<p><a href="${h.url}" target="_blank" rel="noopener noreferrer">${h.title}</a></p>`;
+  currentIndex = (currentIndex + 1) % headlines.length;
 }
 
-// Initialize
-fetchNews()
+// Start rotation + periodic refetch
+fetchNews();                           // initial fetch
+setInterval(showHeadline, 5 * 1000);   // rotate headlines every 5s (adjust if needed)
+setInterval(fetchNews, 5 * 60 * 1000); // re-fetch feed every 5 minutes
+

@@ -31,13 +31,13 @@ body{
 .background div:nth-child(1){
     height: 100%;
     width: 100%;
-    background-color: #A3C8DA;
+    background-color: #A79EA3;
 }
 
 .background div:nth-child(2){
     width: 80%;
     width: 70%;
-    background-color: #FFFBEF;
+    background-color: #A2999F;
     top: -12%;
     right: -12%;
     animation-delay: 2s;
@@ -55,7 +55,7 @@ body{
 .background div:nth-child(4){
     height: 65%;
     width: 80%;
-    background-color: #A3C8DA;
+    background-color: #A79EA3;
     bottom: -15%;
     right: -20%;
     animation-delay: 3s;
@@ -114,22 +114,27 @@ main{
 
 .time{
     position: absolute;
-    top: -770px;
+    top: -850px;
     font-size: 64px;
     font-weight: 700;
-    color: #659BB8;
+    color: #433B42;
 }
 
 .weather{
     display: flex;
-    top: -700px;
+    top: -760px;
     position: absolute;
-    color: #143F57;
+    color: #433B42;
 }
 
 .news{
     position: absolute;
     bottom: 5px;
     font-size: 32px;
-    color: #143F57;
+
+}
+
+.news a{
+    color: #433B42;
+    text-decoration: none;
 }

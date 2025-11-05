@@ -1,7 +1,7 @@
 <?php
-$host = "attendance.cb6y0yii0m0z.ap-south-1.rds.amazonaws.com:3306";
-$username = "admin";
-$password = "amazonaws";
+$host = "127.0.0.1:3306";
+$username = "root";
+$password = "";
 $database = "attendancejframebd";
 
 // Create connection

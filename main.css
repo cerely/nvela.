@@ -151,7 +151,9 @@ body {
     display: flex;
     gap: 2rem;
     align-items: center;
+    justify-content: space-between;
 }
+
 
 .mark{
     /* padding-left: 1rem; */
@@ -165,9 +167,12 @@ body {
     background-color: var(--color-light);
     padding: 1rem;
     border-radius: var(--border-radius);
+    white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .color-picker fieldset {
+    
     margin-top: 2rem;
     border: 0;
     display: flex;
@@ -385,6 +390,7 @@ body {
 
 .grid{
     padding: 1rem;
+    padding-top: 3rem;
     position: relative;
     display: grid;
     grid-template-columns: 320px 210px 210px 210px 410px;
@@ -444,8 +450,8 @@ body {
     font-weight: bold;
     color: var(--text-color);
 }
-
 .button {
+    display: none;
     /* top: 15px;
     left: 25px; */
     width: 150px;
@@ -462,6 +468,36 @@ body {
     position: relative;
 }
 
+button {
+font-size: 1.2rem;
+padding: 12px 24px;
+margin: 10px;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+color: white;
+}
+.on {
+    margin-left: -13px;
+    margin-top: -30px;
+    height: 140px;
+    width: 140px;
+    background: transparent;
+    font-size: 1rem;
+}
+
+.off {
+background: var(--color-light);
+font-size: 10px;
+}
+
+#status {
+margin-top: 20px;
+font-size: 1.1rem;
+}
+
+
+
 .button-in{
     width: 120px;
     height: 120px;
@@ -476,7 +512,7 @@ body {
     left: 3px;
     position: relative;
     width: 120px;
-    height: 100px;
+    height: 10px;
 }
 
 .power-symbol::before {
@@ -507,6 +543,7 @@ body {
     background-color: var(--color-beige);
     border: solid 1px var(--color-light);
     border-radius: var(--border-radius);
+    overflow: hidden;
     
 }
 
@@ -517,14 +554,20 @@ body {
     color: var(--text-color-2);
     font-weight: 500;
     font-size: 18px;
+    overflow: hidden;
 }
 
 .files{
+    margin-top: -10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     padding: 1rem;
     display: flex;
     gap: 14rem;
     color: var(--text-color-1);
 }
+
 
 .attendance-manager{
     background-color: var(--color-light);
@@ -637,9 +680,9 @@ body {
 }
 
 .time {
-    padding-top: 6rem;
+    padding-top: 0.5rem;
     font-size: 24px;
-    color: var(--text-color);
+    color: var(--color-dark);
 } 
 
 .weather {
@@ -677,17 +720,16 @@ body {
 
 .weather-txt {
     color: var(--text-color-1);
-    margin-top: -1.4rem;
+    margin-top: 2.5rem;
     font-size: 74px;
     font-weight: bold;
     
 }
 
 .location{
-    margin-top: -1.5rem;
     display: flex;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0rem;
 }
 
 .lab-companion {

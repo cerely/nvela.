@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nvela.</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <p>nvela.</p>
+            </div>
+            
+            <div class="nav-icons">
+                <a href="http://10.169.34.71:5500/main.html" class="nav-ico">
+                    <span class="material-symbols-outlined">dashboard</span>
+                </a>
+                <a href="http://localhost/NVELAMAIN/document/nvela.php" class="nav-ico">
+                    <span class="material-symbols-outlined">description</span>
+                </a>
+                <a href="#control" class="nav-ico">
+                    <span class="material-symbols-outlined">discover_tune</span>
+                </a>
+                <a href="#database" class="nav-ico">
+                    <span class="material-symbols-outlined">database</span>
+                </a>
+            </div>
+
+            <div class="search">
+                <span class="material-symbols-outlined">search</span>
+                <p class="search-txt">Search in dashboard</p>
+            </div>
+
+            <div class="settings">
+                <span class="material-symbols-outlined">settings</span>
+            </div>
+
+            <div class="profile">
+                <div class="profile-photo">
+                    <img src="images/pfp.jpg" alt="Profile">
+                </div>
+                <div class="profile-desc">
+                    <p class="p1">Logged in as,</p>
+                    <p class="p2">Admin</p>
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!------------------MAIN----------------------->
+    <main>
+        <div class="top">
+            <p class="wlc">
+                Welcome, <span>Admin!</span>
+            </p>
+            <div class="info">
+                <div class="marked-attendance">
+                    <p class="mark">
+                        Current Lab
+                    </p>
+                    <p class="info-link">
+                        <span class="material-symbols-outlined">punch_clock</span>
+                        <span id="current-subject">Loading...</span>
+                    </p>
+                </div>
+                <div class="files-uploaded">
+                    <p class="mark">
+                        Files Uploaded
+                    </p>
+                    <p class="info-link">
+                        <span class="material-symbols-outlined">
+                            docs
+                        </span>
+                        3 Files Uploaded.
+                    </p>
+                </div>
+                <div class="database-updates">
+                    <p class="mark">
+                        Database Updates
+                    </p>
+                    <p class="info-link">
+                        <span class="material-symbols-outlined">
+                            database
+                        </span>
+                        5 Changes made to the database.
+                    </p>
+                </div>
+                <form class="color-picker">
+                    <fieldset>
+                        <label>
+                            <input type="radio" name="theme" value="beige" checked>
+                            <span class="visually-hidden">Beige</span>
+                        </label>
+
+                        <label>
+                            <input type="radio" name="theme" value="midnight">
+                            <span class="visually-hidden">Midnight</span>
+                        </label>
+
+                        <label>
+                            <input type="radio" name="theme" value="rose">
+                            <span class="visually-hidden">Rose</span>
+                        </label>
+
+                        <label>
+                            <input type="radio" name="theme" value="blue">
+                            <span class="visually-hidden">Blue</span>
+                        </label>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="quick-access" style="grid-area: box-1">
+                <p class="quick">Quick Access</p>
+                <div class="access">
+                    <div class="rec" class="screen-saver">
+                        <span class="material-symbols-outlined">bedtime</span>
+                        <a href="sleep/sleep.html"><p>Screen Saver</p></a>
+                    </div>
+                    <div class="rec" class="notices">
+                        <span class="material-symbols-outlined">brand_awareness</span>
+                        <a href="http://localhost/NVELAMAIN/notice/notice.php"><p>Notices</p></a>
+                    </div>
+                    <div class="rec" class="schedule">
+                        <span class="material-symbols-outlined">calendar_month</span>
+                        <a href="schedule/test.html"><p>Schedule</p></a>
+                        
+                    </div>
+                    <div class="rec" class="document-viewer">
+                        <span class="material-symbols-outlined">description</span>
+                        <a href="http://localhost/NVELAMAIN/document/nvela.php"><p>Document Viewer</p></a>
+                    </div>
+                    <div class="rec" class="lab-companion">
+                        <span class="material-symbols-outlined">smart_toy</span>
+                        <p>Lab Companion</p>
+                    </div>
+                </div>
+            </div>
+            <div class="switch-control" style="grid-area: box-2">
+                <div class="button">
+                    <div class="button-in">
+                        <div class="power-symbol"></div>
+                    </div>
+                </div>
+                <p>Switch Control</p>
+            </div>
+            <div class="recently-uploaded" style="grid-area: box-3">
+                <div class="recently-uploaded" style="grid-area: box-3">
+                <div class="recent">
+                    <p>Recently Uploaded Files</p>
+                    <!-- <span class="material-symbols-outlined">open_in_full</span> -->
+                </div>
+
+                <div class="files">
+                    <!-- Keep your exact structure -->
+                    <div class="list" id="file-list">
+                    <p>Loading files...</p>
+                    </div>
+                    <div class="size" id="file-size">
+                    <p>—</p>
+                    </div>
+                </div>
+                </div>
+
+
+            </div>
+            <div class="attendance-manager" style="grid-area: box-4a">
+                <div class="att">
+                    <p>Attendance Manager</p>
+                    <a href="http://localhost/NVELAMAIN/attendance/index.php"><span class="material-symbols-outlined">open_in_full</span></a>
+                </div> 
+                <div class="stud-info">
+                    <div class="student-1">
+                        <div class="profile-att">
+                            <img class="prof" src="./images/user.png" alt="">
+                        </div>
+                        <div class="prof-info">
+                            <p>Saya Mumbaikar</p>
+                            <p>10:08 PM</p>
+                        </div>
+                    </div>
+                    <div class="student-1">
+                        <div class="profile-att">
+                            <img class="prof" src="./images/user.png" alt="">
+                        </div>
+                        <div class="prof-info">
+                            <p>Saya Mumbaikar</p>
+                            <p>10:08 PM</p>
+                        </div>
+                    </div>
+                    <div class="student-1">
+                        <div class="profile-att">
+                            <img class="prof" src="./images/user.png" alt="">
+                        </div>
+                        <div class="prof-info">
+                            <p>Saya Mumbaikar</p>
+                            <p>10:08 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart">
+                    <img src="/images/group117.png" alt="">
+                </div>
+            </div>
+            <div class="download-qr" style="grid-area: box-5;">
+                <div class="qr-cont">
+                    <p class="qr-title">QR Code</p>
+                    <p class="qr-head">Download QR Code from the Database</p>
+                    <div class="btnn">
+                        <button class="qr-btn" onclick="window.location.href='http://localhost/NVELAMAIN/qrcode/display.php'">From here</button>
+                    </div>
+                </div>
+            </div>
+            <div class="weather">
+                <div class="weath-bg">
+                </div>
+                <div class="weath-cont">
+                    <p class="time">02:30</p>
+                    <div class="weath">
+                        <p class="weather-txt">26°C</p>
+                        <div class="location">
+                            <span class="material-symbols-outlined weath-ico">cloud</span>
+                            <p>Panvel</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lab-companion">
+                <div class="alert">
+                    <p>Next Lab is Cloud Computing.</p>
+                </div>
+                <!-- <div class="pixel-cat">
+                    <img src="/images/cat-bluee.gif" alt="">
+                </div> -->
+                
+            </div>
+            
+        </div>
+    </main>
+    <script src="main.js"></script>
+
+
+</body>
+</html>
