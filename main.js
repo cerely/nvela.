@@ -25,7 +25,7 @@ themeRadios.forEach(radio => {
 // 🧠 CURRENT SUBJECT FETCHER
 // =============================
 function fetchCurrentSubject() {
-  fetch('http://10.169.34.71/NVELAMAIN/get_subject.php')
+  fetch('http://localhost/NVELAMAIN/get_subject.php')
     .then(response => response.json())
     .then(data => {
       const subjectElement = document.getElementById("current-subject");

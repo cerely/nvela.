@@ -1,30 +1,62 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "attendancejframebd";
+header('Content-Type: application/json');
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+// Include DB connection (make sure this path is correct)
+include_once("../db.php");
+
+date_default_timezone_set("Asia/Kolkata");
+
+$day = date('l'); // e.g. Friday
+$time = date('H:i:s');
+
+// Debug array
+$debug = [
+    "debug_day" => $day,
+    "debug_time" => $time
+];
+
+// SQL query
+$sql = "
+  SELECT subject_name
+  FROM subjects
+  WHERE (
+      (repeat_type = 'weekly' AND LOWER(day) = LOWER(?))
+      OR
+      (repeat_type = 'once' AND DATE(start_time) = CURDATE())
+  )
+  AND TIME(start_time) <= ?
+  AND TIME(end_time) >= ?
+  LIMIT 1
+";
+
+
+// Prepare the statement
+$stmt = $conn->prepare($sql);
+
+// If preparation failed, show the error
+if (!$stmt) {
+    echo json_encode([
+        "error" => "SQL prepare failed",
+        "mysqli_error" => $conn->error,
+        "query" => $sql,
+        "debug" => $debug
+    ]);
+    exit;
 }
 
-date_default_timezone_set('Asia/Kolkata');
-$current_time = date('Y-m-d H:i:s');
+$stmt->bind_param("sss", $day, $time, $time);
+$stmt->execute();
+$result = $stmt->get_result();
 
-// Query to find subject happening right now
-$sql = "SELECT subject_name FROM subjects
-        WHERE '$current_time' BETWEEN start_time AND end_time
-        LIMIT 1";
-
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-  $row = $result->fetch_assoc();
-  echo $row["subject_name"];
+if ($row = $result->fetch_assoc()) {
+    echo json_encode([
+        "subject_name" => $row['subject_name'],
+        "debug" => $debug
+    ]);
 } else {
-  echo "No Subject";
+    echo json_encode([
+        "subject_name" => "No Subject",
+        "debug" => $debug
+    ]);
 }
-
-$conn->close();
 ?>

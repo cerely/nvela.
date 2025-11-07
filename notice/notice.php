@@ -426,7 +426,7 @@ textarea {
             </div>
             
             <div class="nav-icons">
-                <a href="http://10.169.34.71:5500/main.html" class="nav-ico">
+                <a href="/main.html" class="nav-ico">
                     <span class="material-symbols-outlined">dashboard</span>
                 </a>
                 <a href="http://localhost/NVELAMAIN/document/nvela.php" class="nav-ico">
@@ -439,7 +439,6 @@ textarea {
                     <span class="material-symbols-outlined">database</span>
                 </a>
             </div>
-
             <div class="search">
                 <span class="material-symbols-outlined">search</span>
                 <p class="search-txt">Search in dashboard</p>
